@@ -21,7 +21,7 @@ let postsApi = {
     },
 
     createPost(post){
-         return axios.post<ResponseType>(url, {title:post.title, body: post.text})
+         return axios.post(url, {title:post.title, body: post.text}).then(res=>res)
     }
 }
 
