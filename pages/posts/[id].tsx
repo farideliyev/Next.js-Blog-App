@@ -1,7 +1,10 @@
 import React from "react";
 import {BlogBody} from "../../components/Blog";
 import { GetStaticProps, GetStaticPaths } from 'next'
+import { useRouter } from 'next/router'
 import postsApi from "../../api/postApi";
+
+
 
 
 export const getStaticProps :GetStaticProps = async ({params})=> {
@@ -21,7 +24,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
         params: { id: post.id.toString() }
     }))
 
-    return { paths, fallback: false }
+    return { paths, fallback: true }
 }
 
 
@@ -30,7 +33,20 @@ type PropsType = {
     post: string
 }
 const Post: React.FC<PropsType> = ({post})=>{
-    return <BlogBody>{post}</BlogBody>
+    const router = useRouter()
+
+    return <BlogBody>
+        {router.isFallback
+            ? <div>Loading...</div>
+            : post
+        }
+
+    </BlogBody>
+
+
+
+
+
 
 }
 
