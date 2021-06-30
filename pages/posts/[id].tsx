@@ -6,7 +6,7 @@ import postsApi from "../../api/postApi";
 
 export const getStaticProps :GetStaticProps = async ({params})=> {
     const res = await postsApi.getPost(params.id)
-    const post = res.data.body
+    const post = res.body
 
     return {
         props : {

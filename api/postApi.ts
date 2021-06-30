@@ -1,25 +1,23 @@
-import axios, {AxiosResponse} from "axios";
+import axios, {AxiosRequestConfig, AxiosResponse} from "axios";
 
 let url = 'https://simple-blog-api.crew.red/posts'
 
 type PostType = {
-    id:number,
-    title:string,
-    body: string
+    id: number,
+    title: string,
+    body:  string
 }
-type ResponseType = {
-    data: Array<PostType>,
-    status: number
-}
+
 let postsApi = {
 
      getPosts (){
-         return axios.get<ResponseType>(url).then(response=>response)
+
+         return axios.get(url).then(response=>response)
          /*add catch and types will not work*/
     },
 
     getPost(id){
-         return axios.get<ResponseType>(`${url}/${id}`)
+         return axios.get<PostType>(`${url}/${id}`).then(response=>response.data)
     },
 
     createPost(post){
